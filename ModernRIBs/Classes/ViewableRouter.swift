@@ -40,6 +40,8 @@ open class ViewableRouter<InteractorType, ViewControllerType>: Router<Interactor
 
     /// The base `ViewControllable` associated with this `Router`.
     public let viewControllable: ViewControllable
+    
+    private let autoDetachRegistry = AutoDetachRegistry()
 
     /// Initializer.
     ///
@@ -53,6 +55,10 @@ open class ViewableRouter<InteractorType, ViewControllerType>: Router<Interactor
         self.viewControllable = viewControllable
 
         super.init(interactor: interactor)
+    }
+    
+    public func addAutodetachableChild(_ child: ViewableRouting) {
+        autoDetachRegistry.attachViewableChild(child, with: self)
     }
 
     // MARK: - Internal
